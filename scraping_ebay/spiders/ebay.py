@@ -9,7 +9,7 @@ class EbaySpider(scrapy.Spider):
 	start_urls = ["https://www.ebay.com"]
 
 	# Allow a custom parameter (-a flag in the scrapy command)
-	def __init__(self, search="nintendo switch console"):
+	def __init__(self, search="1986 fleer Michael Jordan"):
 		self.search_string = search
 
 	def parse(self, response):
@@ -42,6 +42,8 @@ class EbaySpider(scrapy.Spider):
 				name = "ERROR"
 
 			price = product.xpath('.//*[@class="s-item__price"]/text()').extract_first()
+			price = ending.xpath('.//*[@class="s-item__time-end"]/text()').extract_first()
+			price = left.xpath('.//*[@class="s-item__time-left"]/text()').extract_first()
 			status = product.xpath('.//*[@class="SECONDARY_INFO"]/text()').extract_first()
 			seller_level = product.xpath('.//*[@class="s-item__etrs-text"]/text()').extract_first()
 			location = product.xpath('.//*[@class="s-item__location s-item__itemLocation"]/text()').extract_first()
@@ -58,6 +60,8 @@ class EbaySpider(scrapy.Spider):
 
 			yield{
 			"Name":name,
+			"Ends":end,	
+			"Time_Left":left,	
 			"Status":status,
 			#"Seller_Level":seller_level,
 			#"Location":location,
