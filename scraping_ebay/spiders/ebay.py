@@ -9,8 +9,14 @@ class EbaySpider(scrapy.Spider):
 	start_urls = ["https://www.ebay.com"]
 
 	# Allow a custom parameter (-a flag in the scrapy command)
-	def __init__(self, search="1986 fleer Michael Jordan"):
+	def __init__(self, search="1986 Fleer Michael Jordan"):
 		self.search_string = search
+		
+	def __init__(self, search="Kobe Bryant Grade 10"):
+		self.search_string = search1
+		
+	def __init__(self, search="Luca Doncic Rookie"):
+		self.search_string = search2
 
 	def parse(self, response):
 		# Extrach the trksid to build a search request	
@@ -63,8 +69,8 @@ class EbaySpider(scrapy.Spider):
 			"Ends":end,	
 			"Time_Left":left,	
 			"Status":status,
-			#"Seller_Level":seller_level,
-			#"Location":location,
+			"Seller_Level":seller_level,
+			"Location":location,
 			"Price":price,
 			"Stars":stars,
 			"Ratings":ratings,
